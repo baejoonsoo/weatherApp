@@ -7,10 +7,9 @@ import { StyleSheet, Dimensions, Text, View, ScrollView } from "react-native";
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
 export default function App() {
-  const [location, setLocation] = useState(null);
   const [success, setSuccess] = useState(true);
   const [city, setCity] = useState("Loding...");
-  const ask = async () => {
+  const getWeather = async () => {
     const { granted } = await Location.requestForegroundPermissionsAsync();
     if (!granted) {
       setSuccess(false);
@@ -30,7 +29,7 @@ export default function App() {
     setCity(city);
   };
   useEffect(() => {
-    ask();
+    getWeather();
   });
 
   return (
