@@ -66,8 +66,14 @@ export default function App() {
   return (
     <View style={styles.container}>
       <View style={styles.city}>
-        <Text style={styles.cityName}>{city}</Text>
-        <Text style={styles.district}>{district}</Text>
+        {!success ? (
+          <Text style={styles.cityName}>위치 권한을 허용해주세요</Text>
+        ) : (
+          <View>
+            <Text style={styles.cityName}>{city}</Text>
+            <Text style={styles.district}>{district}</Text>
+          </View>
+        )}
       </View>
       <ScrollView
         pagingEnabled
