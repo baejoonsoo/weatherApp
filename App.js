@@ -139,9 +139,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   weather: {
-    borderWidth: 2,
-    borderStyle: "solid",
     borderTopColor: "black",
+    borderTopWidth: 2,
+    borderStyle: "solid",
   },
   day: {
     width: SCREEN_WIDTH,
