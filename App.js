@@ -138,7 +138,11 @@ const styles = StyleSheet.create({
     fontSize: 25,
     marginTop: 10,
   },
-  weather: {},
+  weather: {
+    borderWidth: 2,
+    borderStyle: "solid",
+    borderTopColor: "black",
+  },
   day: {
     width: SCREEN_WIDTH,
     alignItems: "flex-start",
