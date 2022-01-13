@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { API_KEY } from "./apiKey";
 import axios from "axios";
+import { Fontisto } from "@expo/vector-icons";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
@@ -52,6 +53,16 @@ export default function App() {
     getWeather();
   }, []);
 
+  const icon = {
+    Clouds: "cloudy",
+    Clear: "day-sunny",
+    Snow: "snowflake-4",
+    Rain: "rains",
+    Atmosphere: "cloudy-gusts",
+    Drizzle: "rain",
+    Thunderstorm: "lightning",
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.city}>
@@ -73,15 +84,28 @@ export default function App() {
             const temp = parseFloat(day.temp.day).toFixed(1);
             return (
               <View key={index} style={styles.day}>
-                <Text
-                  // style={}
+                <View
                   style={{
-                    ...styles.temp,
-                    color: temp < 0 ? "red" : temp === 0 ? "black" : "blue",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    width: "100%",
+                    justifyContent: "space-between",
                   }}
                 >
-                  {temp}
-                </Text>
+                  <Text
+                    style={{
+                      ...styles.temp,
+                      color: temp < 0 ? "red" : temp === 0 ? "black" : "blue",
+                    }}
+                  >
+                    {temp}
+                  </Text>
+                  <Fontisto
+                    name={icon[day.weather[0].main]}
+                    size={90}
+                    color="black"
+                  />
+                </View>
                 <Text style={styles.description}>{day.weather[0].main}</Text>
                 <Text style={styles.date}>
                   {new Date(day.dt * 1000).toString().substring(0, 10)}
@@ -117,15 +141,18 @@ const styles = StyleSheet.create({
   weather: {},
   day: {
     width: SCREEN_WIDTH,
-    alignItems: "center",
+    alignItems: "flex-start",
+    paddingHorizontal: 20,
   },
   temp: {
+    fontWeight: "600",
     fontSize: 100,
     marginTop: 50,
   },
   description: {
-    fontSize: 35,
-    marginTop: -20,
+    fontSize: 30,
+    fontWeight: "500",
+    marginTop: -10,
   },
   date: {
     fontSize: 15,
