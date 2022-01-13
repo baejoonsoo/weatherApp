@@ -24,6 +24,7 @@ export default function App() {
     const { granted } = await Location.requestForegroundPermissionsAsync();
     if (!granted) {
       setSuccess(false);
+      return;
     }
     const {
       coords: { latitude, longitude },
