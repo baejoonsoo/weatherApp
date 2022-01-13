@@ -18,6 +18,7 @@ export default function App() {
   const [success, setSuccess] = useState(true);
   const [days, setDays] = useState([]);
   const [city, setCity] = useState("Loding...");
+  const [district, setDistrict] = useState("");
   const getWeather = async () => {
     const { granted } = await Location.requestForegroundPermissionsAsync();
     if (!granted) {
@@ -34,14 +35,17 @@ export default function App() {
       },
       { useGoogleMaps: false }
     );
-    const city = userLocation[0].city || userLocation[0].district;
+    const district = userLocation[0].city || userLocation[0].district;
+    const city = userLocation[0].region;
+    // console.log(userLocation[0]);
     setCity(city);
+    setDistrict(district);
 
     const response = await axios.request({
       method: "get",
       url: `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=alerts&appid=${API_KEY}&units=metric`,
     });
-    console.log(response.data.daily);
+    // console.log(response.data.daily);
     setDays(response.data.daily);
   };
   useEffect(() => {
@@ -52,6 +56,7 @@ export default function App() {
     <View style={styles.container}>
       <View style={styles.city}>
         <Text style={styles.cityName}>{city}</Text>
+        <Text style={styles.district}>{district}</Text>
       </View>
       <ScrollView
         pagingEnabled
@@ -72,8 +77,7 @@ export default function App() {
                   // style={}
                   style={{
                     ...styles.temp,
-                    color:
-                      temp < 0 ? "red" : temp === 0 ? "black" : styles.temp,
+                    color: temp < 0 ? "red" : temp === 0 ? "black" : "blue",
                   }}
                 >
                   {temp}
@@ -105,6 +109,10 @@ const styles = StyleSheet.create({
   cityName: {
     fontSize: 40,
     fontWeight: "500",
+  },
+  district: {
+    fontSize: 25,
+    marginTop: 10,
   },
   weather: {},
   day: {
