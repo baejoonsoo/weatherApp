@@ -64,17 +64,27 @@ export default function App() {
             <ActivityIndicator color="black" size="large" />
           </View>
         ) : (
-          days.map((day, index) => (
-            <View key={index} style={styles.day}>
-              <Text style={styles.temp}>
-                {parseFloat(day.temp.day).toFixed(1)}
-              </Text>
-              <Text style={styles.description}>{day.weather[0].main}</Text>
-              <Text style={styles.date}>
-                {new Date(day.dt * 1000).toString().substring(0, 10)}
-              </Text>
-            </View>
-          ))
+          days.map((day, index) => {
+            const temp = parseFloat(day.temp.day).toFixed(1);
+            return (
+              <View key={index} style={styles.day}>
+                <Text
+                  // style={}
+                  style={{
+                    ...styles.temp,
+                    color:
+                      temp < 0 ? "red" : temp === 0 ? "black" : styles.temp,
+                  }}
+                >
+                  {temp}
+                </Text>
+                <Text style={styles.description}>{day.weather[0].main}</Text>
+                <Text style={styles.date}>
+                  {new Date(day.dt * 1000).toString().substring(0, 10)}
+                </Text>
+              </View>
+            );
+          })
         )}
       </ScrollView>
       <StatusBar style="dark"></StatusBar>
