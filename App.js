@@ -124,10 +124,11 @@ const styles = StyleSheet.create({
     marginTop: 50,
   },
   description: {
-    fontSize: 40,
+    fontSize: 35,
     marginTop: -20,
   },
   date: {
     fontSize: 15,
+    fontWeight: "500",
   },
 });
